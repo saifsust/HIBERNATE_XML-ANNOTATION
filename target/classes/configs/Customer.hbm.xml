@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 5, 2019 10:27:11 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="models">
+	<class name="Customer" table="CUSTOMERS" entity-name="CUSTOMERS">
+		<id name="customer_id" type="int">
+			<column name="CUSTOMER_ID" unique="true" />
+			<generator class="identity" />
+		</id>
+
+		<property generated="never" lazy="false" name="name"
+			type="java.lang.String">
+			<column name="NAME" />
+		</property>
+
+		<property generated="never" lazy="false" name="mail"
+			type="java.lang.String">
+			<column name="MAIL" />
+		</property>
+		<!-- embedded -->
+		<component name="Address" class="models.Address">
+			<property name="thana" column="THANA" />
+			<property name="location" column="LOCATION" />
+			<property name="division" column="DIVISION" />
+		</component>
+	</class>
+</hibernate-mapping>
