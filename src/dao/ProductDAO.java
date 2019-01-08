@@ -28,7 +28,7 @@ public class ProductDAO implements Execute<Product> {
 		List<Product> products = null;
 		try {
 			session = sessionFactory.openSession();
-			SQL = "from PRODUCTS";
+			SQL = "from PRODUCT";
 			session.beginTransaction();
 			products = session.createQuery(SQL, Product.class).list();
 			session.getTransaction().commit();
@@ -56,10 +56,14 @@ public class ProductDAO implements Execute<Product> {
 
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			SQL = "INSERT INTO PRODUCTS(name,price) values " + model;
-			Query query = session.createNativeQuery(SQL);
+			/*
+			 * SQL = "INSERT INTO PRODUCTS(name,price) values " + model; Query query =
+			 * session.createNativeQuery(SQL);
+			 * 
+			 * query.executeUpdate();
+			 */
 
-			query.executeUpdate();
+			session.save(model);
 
 			transaction.commit();
 

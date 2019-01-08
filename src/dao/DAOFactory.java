@@ -12,15 +12,15 @@ public class DAOFactory {
 
 	public Execute buildExecution(String model) {
 
-		if (model.equals("CUSTOMER")) {
+		if (model.equalsIgnoreCase("CUSTOMER") || model.equalsIgnoreCase("customer")) {
 			return new CustomerDAO(sessionFactory);
 		}
 
-		if (model.equals("PRODUCT")) {
+		if (model.equalsIgnoreCase("PRODUCT") || model.equalsIgnoreCase("product")) {
 			return new ProductDAO(sessionFactory);
 		}
 
-		if (model.equals("ORDER")) {
+		if (model.equalsIgnoreCase("ORDER") || model.equalsIgnoreCase("order")) {
 			return new OrderDAO(sessionFactory);
 		}
 

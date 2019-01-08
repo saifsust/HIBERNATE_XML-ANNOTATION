@@ -3,12 +3,17 @@
  */
 package dao;
 
+import java.util.Iterator;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
+import models.Customer;
 import models.Order;
+import models.Product;
 
 /**
  *
@@ -22,6 +27,7 @@ public class OrderDAO implements Execute<Order> {
 	private SessionFactory sessionFactory;
 	private Session session;
 	private String SQL;
+	private Transaction transaction;
 
 	protected OrderDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -29,19 +35,74 @@ public class OrderDAO implements Execute<Order> {
 
 	@Override
 	public List<Order> retrieveAll() {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Order> orders = null;
+		try {
+			SQL = "select * from PRODUCTS left join ORDERS on (ORDERS.FK_PRODUCT_ID = PRODUCTS.PRODUCT_ID)";
+			transaction = null;
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+
+			orders = session.createNativeQuery(SQL, Order.class).list();
+
+			transaction.commit();
+
+		} catch (Exception ex) {
+			// TODO: handle exception
+
+			if (transaction == null)
+				transaction.rollback();
+
+			System.out.println("INSERT : " + ex.getMessage());
+		} finally {
+			session.close();
+		}
+		return orders;
 	}
 
 	@Override
 	public Order retrieveById(Object id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Order order = null;
+		try {
+			transaction = null;
+
+			session = sessionFactory.openSession();
+
+			transaction = session.beginTransaction();
+
+			order = session.get(Order.class, (int) id);
+			transaction.commit();
+
+		} catch (Exception ex) {
+
+			System.out.println("RETRIEVE BY ID : " + ex.getMessage());
+
+			if (transaction == null)
+				transaction.rollback();
+		} finally {
+			session.close();
+		}
+
+		return order;
 	}
 
 	@Override
 	public boolean insert(Order model) {
-		// TODO Auto-generated method stub
+		try {
+			transaction = null;
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			session.save(model);
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction == null)
+				transaction.rollback();
+			System.out.println("ORDER INSERT : " + ex.getMessage());
+		} finally {
+
+			session.close();
+		}
 		return false;
 	}
 

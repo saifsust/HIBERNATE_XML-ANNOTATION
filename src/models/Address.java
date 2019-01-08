@@ -1,7 +1,11 @@
 package models;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 
+@Entity(name = "ADDRESS")
+@Embeddable
 public class Address {
 
 	@Column(name = "THANA")

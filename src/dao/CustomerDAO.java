@@ -25,7 +25,7 @@ public class CustomerDAO implements Execute<Customer> {
 	public List<Customer> retrieveAll() {
 
 		List<Customer> customers = null;
-		SQL = "from CUSTOMERS";
+		SQL = "from CUSTOMER";
 
 		try {
 
@@ -73,7 +73,7 @@ public class CustomerDAO implements Execute<Customer> {
 			session = sessionFactory.openSession();
 
 			transaction = session.beginTransaction();
-			session.save("CUSTOMERS", model);
+			session.save(model);
 			transaction.commit();
 
 		} catch (Exception ex) {

@@ -10,21 +10,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name = "CUSTOMERS")
+@Entity(name = "CUSTOMER")
 @Table(name = "CUSTOMERS")
 public class Customer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "CUSTOMER_ID", nullable = false)
-	private int customer_id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "CUSTOMER_ID")
+	private int customerId;
 
-	@Column(name = "NAME")
-	private String name;
-	@Column(name = "MAIL")
-	private String mail;
+	@Column(name = "FIRST_NAME")
+	private String firstName;
+	@Column(name = "LAST_NAME")
+	private String lastName;
+
 	@Embedded
-
 	@AttributeOverrides(value = { @AttributeOverride(name = "THANA", column = @Column),
 			@AttributeOverride(name = "LOCATION", column = @Column),
 			@AttributeOverride(name = "DIVISION", column = @Column) })
@@ -34,11 +34,35 @@ public class Customer {
 		super();
 	}
 
-	public Customer(String name, String mail, Address address) {
+	public Customer(String firstName, String lastName, Address address) {
 		super();
-		this.name = name;
-		this.mail = mail;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.address = address;
+	}
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Address getAddress() {
@@ -49,34 +73,10 @@ public class Customer {
 		this.address = address;
 	}
 
-	public int getCustomer_id() {
-		return customer_id;
-	}
-
-	public void setCustomer_id(int customer_id) {
-		this.customer_id = customer_id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
 	@Override
 	public String toString() {
-		return "Customer [customer_id=" + customer_id + ", name=" + name + ", mail=" + mail + ", address=" + address
-				+ "]";
+		return "Customer [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", address=" + address + "]";
 	}
 
 }

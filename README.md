@@ -14,4 +14,6 @@ here  while fetch data from a table query must be like
 
 <P> Here products is entity name</p>
 
+<p>in one to one join, foreign key's column name must be different otherwise duplicaion key exception happened in hibernate</P>
+
 

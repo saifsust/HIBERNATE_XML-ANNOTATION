@@ -9,43 +9,50 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GeneratorType;
 
-@Entity(name = "PRODUCTS")
+@Entity(name = "PRODUCT")
 @Table(name = "PRODUCTS")
 public class Product {
 
 	@Id
-	@Column(name = "product_id")
+	@Column(name = "PRODUCT_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int product_id;
-	@Column(name = "name")
-	private String name;
-	@Column(name = "price")
+	private int productId;
+	@Column(name = "PRODUCT_NAME")
+	private String productName;
+	@Column(name = "PRICE")
 	private double price;
 
 	public Product() {
 		super();
 	}
 
-	public Product(String name, double price) {
+	public Product(String productName, double price) {
 		super();
-		this.name = name;
+		this.productName = productName;
 		this.price = price;
 	}
 
-	public int getProduct_id() {
-		return product_id;
+	public Product(int productId, String productName, double price) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.price = price;
 	}
 
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public int getProductId() {
+		return productId;
 	}
 
-	public String getName() {
-		return name;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 	public double getPrice() {
@@ -58,7 +65,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "('" + name + "'," + price + ")";
+		return "Product [productId=" + productId + ", productName=" + productName + ", price=" + price + "]";
 	}
 
 }

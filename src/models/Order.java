@@ -1,62 +1,71 @@
 package models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
-@Entity(name = "orders")
-@Table(name = "orders")
+@Entity(name = "ORDER")
+@Table(name = "ORDERS")
+
 public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "order_id")
-	private int order_id;
-	@Column(name = "customer_id")
-	private int customer_id;
-	@Column(name = "product_id")
-	private int product_id;
+	@Column(name = "ORDER_ID")
+	private int orderId;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "FK_PRODUCT_ID")
+	// this column name must be different otherwise duplicate key exception will be
+	// happened '.'
+	private Product product;
 
 	public Order() {
 		super();
 	}
 
-	public Order(int customer_id, int product_id) {
+	public Order(Product product) {
 		super();
-		this.customer_id = customer_id;
-		this.product_id = product_id;
+		// this.customer = customer;
+		this.product = product;
 	}
 
-	public int getOrder_id() {
-		return order_id;
+	public Order(int orderId, Product product) {
+		super();
+		this.orderId = orderId;
+		this.product = product;
 	}
 
-	public void setOrder_id(int order_id) {
-		this.order_id = order_id;
+	public int getOrderId() {
+		return orderId;
 	}
 
-	public int getCustomer_id() {
-		return customer_id;
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 
-	public void setCustomer_id(int customer_id) {
-		this.customer_id = customer_id;
+	public Product getProduct() {
+		return product;
 	}
 
-	public int getProduct_id() {
-		return product_id;
-	}
-
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	@Override
 	public String toString() {
-		return "Order [order_id=" + order_id + ", customer_id=" + customer_id + ", product_id=" + product_id + "]";
+		return "Order [orderId=" + orderId + ", product=" + product + "]";
 	}
 
 }
